@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Orca-Tech">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(222 70% 18%)"/>
+      <stop offset="1" stop-color="hsl(242 80% 28%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)"/>
+  <rect x="48" y="48" width="1104" height="534" fill="none" stroke="#5B8CFF" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="50%" y="48%" text-anchor="middle" fill="#F5F6F8" font-family="Arial, sans-serif" font-size="55" font-weight="700">Orca-Tech</text>
+  <text x="50%" y="56%" text-anchor="middle" fill="#9AA1AC" font-family="Arial, sans-serif" font-size="30">OG IMAGE PLACEHOLDER</text>
+</svg>

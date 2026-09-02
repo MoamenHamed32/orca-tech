@@ -1,0 +1,386 @@
+{
+  "meta": {
+    "siteName": "Orca-Tech",
+    "defaultTitle": "Orca-Tech — Software Engineering & Digital Products",
+    "defaultDescription": "Orca-Tech is a Dubai software house building e-commerce, mobile apps, SEO, AI products, and cloud platforms for ambitious companies.",
+    "keywords": "Orca-Tech, software house Dubai, e-commerce development, SEO, React Native, Flutter, AI products, cloud infrastructure, Next.js, Shopify"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "careers": "Careers",
+    "articles": "Articles",
+    "projects": "Projects",
+    "contact": "Get in Touch",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "description": "Orca-Tech is a software house building modern platforms, commerce experiences, and intelligent systems for teams that move fast.",
+    "website": "Website",
+    "services": "Services",
+    "followUs": "Follow us",
+    "newsletter": "Stay in the loop",
+    "newsletterHint": "Product notes, engineering insights, and studio news.",
+    "newsletterPlaceholder": "Work email",
+    "subscribe": "Subscribe",
+    "subscribed": "You're on the list.",
+    "newsletterError": "Enter a valid email.",
+    "copyright": "© 2026 Orca Technology Group. All rights reserved."
+  },
+  "common": {
+    "learnMore": "Learn more",
+    "viewDetails": "View details",
+    "viewCaseStudy": "View Case Study",
+    "apply": "Apply",
+    "readMore": "Read article",
+    "loadMore": "Load more",
+    "backToArticles": "Back to articles",
+    "backToProjects": "Back to projects",
+    "relatedArticles": "Related articles",
+    "galleryPrev": "Previous image",
+    "galleryNext": "Next image",
+    "galleryOpen": "Open gallery",
+    "galleryClose": "Close gallery",
+    "galleryOf": "{current} of {total}",
+    "startProject": "Start a similar project",
+    "all": "All",
+    "remote": "Remote",
+    "fullTime": "Full-time"
+  },
+  "home": {
+    "metaTitle": "Orca-Tech — Software Engineering & Digital Products",
+    "metaDescription": "Hire Orca-Tech to design and ship commerce platforms, mobile apps, SEO, AI products, and cloud systems that last.",
+    "heroHeadline": "We engineer digital products that",
+    "heroAccent": "move the business.",
+    "heroSubheadline": "Orca-Tech is a software house for ambitious teams — shipping commerce, platforms, AI, and cloud systems with the polish of a product studio.",
+    "ctaPrimary": "Get in Touch",
+    "ctaSecondary": "View Our Work",
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "End-to-end capability across product, engineering, and operations.",
+    "partnersTitle": "Tech Partners",
+    "partnersSubtitle": "We build on the stacks our clients already trust — and the ones they should.",
+    "industriesTitle": "Industries We Serve",
+    "industriesSubtitle": "Domain fluency where software has to be precise, compliant, and fast.",
+    "ctaTitle": "Let's Build Something Great Together",
+    "ctaSubtitle": "Tell us what you're shipping. We'll map the architecture, the team, and the first milestone.",
+    "ctaButton": "Get in Touch"
+  },
+  "services": {
+    "ecommerce": {
+      "name": "E-Commerce",
+      "bullets": [
+        "Custom storefronts and checkout",
+        "Catalog, inventory, and OMS",
+        "Payments and marketplace integrations",
+        "Conversion-focused UX"
+      ]
+    },
+    "shopifyWordpress": {
+      "name": "Shopify & WordPress Services",
+      "bullets": [
+        "Theme and app development",
+        "Headless storefronts",
+        "Migrations and performance",
+        "Ongoing retainers"
+      ]
+    },
+      "engineering": {
+      "name": "Engineering & Experience",
+      "bullets": [
+        "Product design and UX",
+        "Web and mobile applications",
+        "Design systems",
+        "Platform modernization"
+      ]
+    },
+    "seo": {
+      "name": "SEO & Search",
+      "bullets": [
+        "Technical SEO and Core Web Vitals",
+        "On-page structure and content",
+        "Schema, sitemap, and indexing",
+        "Local and multilingual search"
+      ]
+    },
+    "ai": {
+      "name": "Artificial Intelligence",
+      "bullets": [
+        "Applied LLM products",
+        "Automation and agents",
+        "Computer vision",
+        "Model evaluation and safety"
+      ]
+    },
+    "cloud": {
+      "name": "Cloud & Infrastructure",
+      "bullets": [
+        "AWS and Azure architecture",
+        "CI/CD and platform engineering",
+        "Observability",
+        "Cost and reliability"
+      ]
+    },
+    "hosting": {
+      "name": "Hosting",
+      "bullets": [
+        "Managed cloud hosting",
+        "CDN and edge delivery",
+        "Backups and disaster recovery",
+        "SLA-backed operations"
+      ]
+    },
+    "data": {
+      "name": "Data & Analytics",
+      "bullets": [
+        "Warehouses and pipelines",
+        "BI dashboards",
+        "Event tracking",
+        "Decision systems"
+      ]
+    }
+  },
+  "industries": {
+    "retail": {
+      "name": "Retail & E-commerce",
+      "description": "Omnichannel commerce, inventory truth, and experiences that convert."
+    },
+    "fintech": {
+      "name": "Fintech",
+      "description": "Payments, ledgers, and regulated product surfaces built for trust."
+    },
+    "healthcare": {
+      "name": "Healthcare",
+      "description": "Clinical workflows, patient portals, and privacy-first platforms."
+    },
+    "logistics": {
+      "name": "Logistics",
+      "description": "Tracking, routing, and operations software that keeps fleets moving."
+    },
+    "telecom": {
+      "name": "Telecom",
+      "description": "Self-serve portals, billing, and high-scale customer platforms."
+    },
+    "education": {
+      "name": "Education",
+      "description": "Learning products, campus systems, and content platforms."
+    },
+    "realEstate": {
+      "name": "Real Estate",
+      "description": "Listings, CRM, and digital journeys from discovery to close."
+    },
+    "hospitality": {
+      "name": "Hospitality",
+      "description": "Booking, guest experience, and operations for hotels and venues."
+    }
+  },
+  "about": {
+    "metaTitle": "About Us — Orca-Tech",
+    "metaDescription": "Orca-Tech is an engineering studio in Dubai. We partner with companies to design, build, and operate software that compounds.",
+    "heroTitle": "Built for teams who take software seriously.",
+    "heroSubtitle": "Orca-Tech is an engineering studio and software house. We help organizations ship products that feel inevitable — precise, resilient, and ready to scale.",
+    "storyTitle": "Our story",
+    "storyBody": "We started Orca-Tech because too many digital programs stall between a beautiful deck and a production system. Our model is simple: senior craft, clear ownership, and delivery that survives contact with the real world.",
+    "missionTitle": "Mission",
+    "missionBody": "Turn ambitious product ideas into durable software — with the discipline of an engineering firm and the taste of a design studio.",
+    "visionTitle": "Vision",
+    "visionBody": "To be the partner companies call when the work has to be excellent, the stack has to last, and the team has to move without drama.",
+    "valuesTitle": "Core values",
+    "values": {
+      "precision": {
+        "title": "Precision",
+        "description": "We prefer the exact solution over the fashionable one. Architecture, copy, and pixels all get the same scrutiny."
+      },
+      "ownership": {
+        "title": "Ownership",
+        "description": "We stay close to outcomes. If it ships under our name, we treat production as part of the brief."
+      },
+      "clarity": {
+        "title": "Clarity",
+        "description": "No fog. Stakeholders see the plan, the trade-offs, and the next decision — in plain language."
+      },
+      "momentum": {
+        "title": "Momentum",
+        "description": "Small, shippable increments beat theatrical roadmaps. We keep the product moving."
+      }
+    },
+    "statsTitle": "By the numbers",
+    "stats": {
+      "years": "Years of experience",
+      "projects": "Projects delivered",
+      "clients": "Clients served",
+      "team": "Specialists"
+    },
+    "ctaTitle": "Want to build with us?",
+    "ctaCareers": "See open roles",
+    "ctaContact": "Start a conversation"
+  },
+  "careers": {
+    "metaTitle": "Careers — Orca-Tech",
+    "metaDescription": "Join Orca-Tech. We hire engineers, designers, and operators who care about craft.",
+    "hiringBadge": "We're hiring",
+    "heroTitle": "Shape the future of digital products.",
+    "heroSubtitle": "Build your career with a studio that values craft, global impact, and continuous learning — across Cairo, Dubai, and remote.",
+    "whyTitle": "Why Orca-Tech",
+    "perks": {
+      "impact": {
+        "title": "Global impact",
+        "description": "Work on products that ship across MENA and Europe — from commerce platforms to enterprise systems."
+      },
+      "stack": {
+        "title": "Cutting-edge tech",
+        "description": "Build with TypeScript, Next.js, cloud, and applied AI on real problems that land in production."
+      },
+      "growth": {
+        "title": "Continuous growth",
+        "description": "Mentorship, learning budget, and projects that stretch the interesting part of your craft."
+      },
+      "remote": {
+        "title": "Remote-first",
+        "description": "Flexible culture with studio days in Cairo and Dubai when the work needs a room."
+      }
+    },
+    "openingsTitle": "Open positions",
+    "openingsSubtitle": "If a role fits, we move quickly. If it does not, send an open application.",
+    "rolesCount": "{count} roles",
+    "viewApply": "View",
+    "emptyTitle": "No open roles right now — send us your CV",
+    "emptyBody": "We hire in cycles. Leave your work with us and we will reach out when a seat opens.",
+    "emptyCta": "Send your CV",
+    "department": "Department",
+    "location": "Location",
+    "type": "Type",
+    "openApplyTitle": "Don't see a role that fits?",
+    "openApplyBody": "We're always looking for exceptional people. Send your profile and we'll reach out when the right seat opens.",
+    "openApplyCta": "Send open application",
+    "applyMetaTitle": "Apply — Orca-Tech",
+    "applyMetaDescription": "Apply to an open role at Orca-Tech, or send a general application.",
+    "applyHeroTitle": "Apply to Orca-Tech",
+    "applyHeroTitleRole": "Apply — {role}",
+    "applyHeroSubtitle": "Tell us about your work. We typically reply within a few business days.",
+    "applyFormTitle": "Application",
+    "applyFormLead": "Pick a role, add a short note, and attach a CV if you have one. This demo does not send email yet.",
+    "applyName": "Full name",
+    "applyEmail": "Email",
+    "applyPhone": "Phone",
+    "applyRole": "Role",
+    "applyLinkedin": "LinkedIn",
+    "applyPortfolio": "Portfolio / website",
+    "applyCv": "CV",
+    "applyMessage": "Cover note",
+    "applySubmit": "Submit application",
+    "applySending": "Sending…",
+    "optional": "optional",
+    "generalOption": "General application",
+    "successTitle": "Application received.",
+    "successBody": "Thank you. We'll review it and follow up if there's a fit.",
+    "errorTitle": "Something went wrong.",
+    "errorBody": "Please check the form and try again.",
+    "errors": {
+      "name": "Enter your name.",
+      "email": "Enter a valid email.",
+      "role": "Select a role.",
+      "url": "Use a full URL starting with https://",
+      "message": "Write a short note (at least 10 characters)."
+    }
+  },
+  "articles": {
+    "metaTitle": "Insights & Articles — Orca-Tech",
+    "metaDescription": "Engineering notes, AI practice, design thinking, and case studies from the Orca-Tech studio.",
+    "heroTitle": "Insights & Articles",
+    "heroSubtitle": "Field notes from product, platform, and applied AI work — written for operators and builders.",
+    "heroEyebrow": "Studio notes",
+    "resources": "Resources",
+    "categories": {
+      "all": "All",
+      "tech": "Tech",
+      "ai": "AI",
+      "design": "Design",
+      "caseStudies": "Case Studies"
+    }
+  },
+  "projects": {
+    "metaTitle": "Our Work — Orca-Tech",
+    "metaDescription": "See Orca-Tech case studies: an AI-powered multi-vendor marketplace and an academic intelligence platform for schools.",
+    "heroEyebrow": "Case studies",
+    "heroTitle": "Our Work",
+    "heroSubtitle": "Platforms we designed and engineered — from multi-vendor commerce to AI-powered learning.",
+    "filters": {
+      "all": "All",
+      "service": "Service",
+      "industry": "Industry"
+    },
+    "overview": "Overview",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "results": "Results",
+    "platform": "Platform",
+    "ai": "AI",
+    "engineering": "Engineering",
+    "impact": "Impact",
+    "stack": "Tech stack",
+    "gallery": "Product gallery",
+    "testimonial": "Client note",
+    "ctaTitle": "Have a similar brief?",
+    "ctaButton": "Start a project"
+  },
+  "contact": {
+    "metaTitle": "Get in Touch — Orca-Tech",
+    "metaDescription": "Start a software project with Orca-Tech in Dubai. Brief us on the product, constraints, and the outcome you need.",
+    "heroTitle": "Get in Touch",
+    "heroSubtitle": "Share the brief. We typically reply within two business days with a clear next step.",
+    "formTitle": "Start a project",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "phoneOptional": "optional",
+    "company": "Company",
+    "service": "Service interested in",
+    "servicePlaceholder": "Select a service",
+    "message": "Message",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "successTitle": "Message received.",
+    "successBody": "Thank you. A producer will follow up shortly. This demo does not send email yet.",
+    "errorTitle": "Something went wrong.",
+    "errorBody": "Please check the form and try again.",
+    "errors": {
+      "name": "Enter your name (at least 2 characters).",
+      "email": "Enter a valid email.",
+      "service": "Select a service.",
+      "message": "Write a short brief (at least 10 characters)."
+    },
+    "infoTitle": "Direct contact",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "addressLabel": "Studio",
+    "emailValue": "hello@orca-tech.com",
+    "phoneValue": "+971 4 000 0000",
+    "addressValue": "Dubai Internet City, Building 3, Dubai, UAE",
+    "faqTitle": "Quick answers",
+    "mapCaption": "Studio location — placeholder map"
+  },
+  "faq": {
+    "q1": {
+      "q": "How do engagements usually start?",
+      "a": "A short discovery call, then a scoped proposal with timeline, team shape, and commercial model. We do not start building until the outcome is explicit."
+    },
+    "q2": {
+      "q": "Do you work with in-house teams?",
+      "a": "Yes. Many clients embed us as a product pod — we complement internal engineering rather than replace it."
+    },
+    "q3": {
+      "q": "What is a typical timeline?",
+      "a": "A focused MVP is often 8–14 weeks. Platform and commerce programs run longer, in milestone releases."
+    },
+    "q4": {
+      "q": "Can you take over an existing codebase?",
+      "a": "We regularly audit, stabilize, and extend inherited systems. We will tell you honestly if a rewrite is the cheaper path."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That route does not exist — or it has moved.",
+    "cta": "Back home"
+  }
+}
