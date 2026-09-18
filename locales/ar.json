@@ -352,13 +352,16 @@
     },
     "infoTitle": "تواصل مباشر",
     "emailLabel": "البريد",
+    "emailInfoLabel": "عام",
+    "emailSalesLabel": "المبيعات",
     "phoneLabel": "الهاتف",
     "addressLabel": "الاستوديو",
-    "emailValue": "hello@orca-tech.com",
+    "emailInfo": "info@orcatechltd.com",
+    "emailSales": "sales@orcatechltd.com",
     "phoneValue": "+971 4 000 0000",
-    "addressValue": "مدينة دبي للإنترنت، المبنى 3، دبي، الإمارات",
+    "addressValue": "بورفؤاد، بورسعيد، مصر",
     "faqTitle": "أسئلة سريعة",
-    "mapCaption": "موقع الاستوديو — خريطة تجريبية"
+    "mapCaption": "موقع استوديو أوركا-تك"
   },
   "faq": {
     "q1": {

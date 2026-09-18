@@ -43,7 +43,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08, ease }}
-            className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-heading sm:text-5xl lg:text-6xl"
+            className="font-display text-[1.85rem] font-semibold leading-[1.15] tracking-tight text-heading sm:text-5xl lg:text-6xl"
           >
             {t("heroHeadline")}{" "}
             <span className="bg-linear-to-r from-accent to-accent-soft bg-clip-text text-transparent">
@@ -54,7 +54,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.16, ease }}
-            className="mt-6 max-w-xl text-lg leading-8 text-muted"
+            className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8"
           >
             {t("heroSubheadline")}
           </motion.p>

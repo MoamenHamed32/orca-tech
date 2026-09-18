@@ -352,13 +352,16 @@
     },
     "infoTitle": "Direct contact",
     "emailLabel": "Email",
+    "emailInfoLabel": "Info",
+    "emailSalesLabel": "Sales",
     "phoneLabel": "Phone",
     "addressLabel": "Studio",
-    "emailValue": "hello@orca-tech.com",
+    "emailInfo": "info@orcatechltd.com",
+    "emailSales": "sales@orcatechltd.com",
     "phoneValue": "+971 4 000 0000",
-    "addressValue": "Dubai Internet City, Building 3, Dubai, UAE",
+    "addressValue": "Port Fouad, Port Said, Egypt",
     "faqTitle": "Quick answers",
-    "mapCaption": "Studio location — placeholder map"
+    "mapCaption": "Orca-Tech studio location"
   },
   "faq": {
     "q1": {

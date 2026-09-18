@@ -21,7 +21,7 @@ export function organizationJsonLd(locale: string) {
     url: `${SITE_URL}/${locale}`,
     logo: `${SITE_URL}/icon-512.png`,
     image: `${SITE_URL}/og.png`,
-    email: BRAND.email,
+    email: [...BRAND.emails],
     telephone: BRAND.phone,
     address: {
       "@type": "PostalAddress",

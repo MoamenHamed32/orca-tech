@@ -6,7 +6,7 @@ import { MobileDrawer } from "@/components/layout/MobileDrawer";
 import { ButtonLink } from "@/components/ui/Button";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -77,11 +77,12 @@ export function Navbar() {
 
         <button
           type="button"
-          className="rounded-full border border-border p-2 text-heading lg:hidden"
-          aria-label={open ? t("closeMenu") : t("openMenu")}
-          onClick={() => setOpen((value) => !value)}
+          className="relative z-10 rounded-full border border-border p-2 text-heading lg:hidden"
+          aria-label={t("openMenu")}
+          aria-expanded={open}
+          onClick={() => setOpen(true)}
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          <Menu size={18} />
         </button>
       </div>
       <MobileDrawer open={open} onClose={() => setOpen(false)} />

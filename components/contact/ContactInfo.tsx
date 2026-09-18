@@ -12,8 +12,17 @@ export async function ContactInfo() {
           <Mail className="mt-0.5 h-4 w-4 text-accent" aria-hidden />
           <div>
             <p className="text-muted">{t("emailLabel")}</p>
-            <a href={`mailto:${t("emailValue")}`} className="text-heading hover:text-accent">
-              {t("emailValue")}
+            <a
+              href={`mailto:${t("emailInfo")}`}
+              className="block text-heading hover:text-accent"
+            >
+              {t("emailInfo")}
+            </a>
+            <a
+              href={`mailto:${t("emailSales")}`}
+              className="mt-1 block text-heading hover:text-accent"
+            >
+              {t("emailSales")}
             </a>
           </div>
         </li>

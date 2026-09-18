@@ -42,12 +42,26 @@ export function Footer() {
           <p className="mt-4 max-w-sm text-sm leading-6 text-muted">
             {t("footer.description")}
           </p>
+          <div className="mt-4 space-y-1 text-sm">
+            <a
+              href={`mailto:${t("contact.emailInfo")}`}
+              className="block text-muted transition-colors hover:text-heading"
+            >
+              {t("contact.emailInfo")}
+            </a>
+            <a
+              href={`mailto:${t("contact.emailSales")}`}
+              className="block text-muted transition-colors hover:text-heading"
+            >
+              {t("contact.emailSales")}
+            </a>
+          </div>
           <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
             {t("footer.followUs")}
           </p>
           <div className="mt-3 flex gap-3">
             {[
-              { href: "https://www.linkedin.com/", icon: LinkedInIcon, label: "LinkedIn" },
+              { href: "https://www.linkedin.com/company/orca-techs/", icon: LinkedInIcon, label: "LinkedIn" },
               { href: "https://www.facebook.com/", icon: FacebookIcon, label: "Facebook" },
               { href: "https://www.instagram.com/", icon: InstagramIcon, label: "Instagram" },
             ].map(({ href, icon: Icon, label }) => (
