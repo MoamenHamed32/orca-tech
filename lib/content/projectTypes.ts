@@ -3,6 +3,22 @@ import type { ServiceId } from "./services";
 
 export type Localized = { en: string; ar: string };
 
+export type ProjectCategory =
+  | "caseStudy"
+  | "lms"
+  | "ecommerce"
+  | "fintech"
+  | "booking";
+
+export const projectCategories: Array<"all" | ProjectCategory> = [
+  "all",
+  "lms",
+  "ecommerce",
+  "fintech",
+  "booking",
+  "caseStudy",
+];
+
 export type ProjectCardItem = {
   title: Localized;
   body: Localized;
@@ -26,14 +42,29 @@ export type ProjectSection = {
   notes?: ProjectCardItem[];
 };
 
+export type ProjectLink = {
+  label: Localized;
+  href: string;
+};
+
+export type ProjectGalleryItem = {
+  src: string;
+  alt: Localized;
+  device?: "desktop" | "mobile";
+};
+
 export type Project = {
   slug: string;
+  category: ProjectCategory;
   service: ServiceId;
   industry: IndustryId;
   stack: string[];
   tags: Localized[];
   cover: string;
-  gallery: Array<{ src: string; alt: Localized }>;
+  logo?: string;
+  logoTone?: "light" | "dark";
+  links?: ProjectLink[];
+  gallery: ProjectGalleryItem[];
   name: Localized;
   tagline: Localized;
   cta: Localized;

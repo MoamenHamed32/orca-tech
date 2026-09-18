@@ -301,15 +301,26 @@
   },
   "projects": {
     "metaTitle": "Our Work — Orca-Tech",
-    "metaDescription": "See Orca-Tech case studies: an AI-powered multi-vendor marketplace and an academic intelligence platform for schools.",
-    "heroEyebrow": "Case studies",
+    "metaDescription": "See Orca-Tech case studies and client platforms across LMS, e-commerce, FinTech, and booking.",
+    "heroEyebrow": "Projects",
     "heroTitle": "Our Work",
-    "heroSubtitle": "Platforms we designed and engineered — from multi-vendor commerce to AI-powered learning.",
+    "heroSubtitle": "Platforms we designed and engineered — case studies, learning products, commerce, FinTech, and booking.",
     "filters": {
       "all": "All",
       "service": "Service",
       "industry": "Industry"
     },
+    "categories": {
+      "all": "All",
+      "caseStudy": "Case studies",
+      "lms": "LMS",
+      "ecommerce": "E-commerce",
+      "fintech": "FinTech",
+      "booking": "Booking"
+    },
+    "liveDemo": "Live demo",
+    "galleryDesktop": "Desktop",
+    "galleryMobile": "Mobile",
     "overview": "Overview",
     "challenge": "Challenge",
     "solution": "Solution",

@@ -2,19 +2,34 @@
 
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type GalleryImage = {
   src: string;
   alt: string;
+  device?: "desktop" | "mobile";
 };
 
+type DeviceFilter = "desktop" | "mobile";
+
 export function ProjectGallery({ images }: { images: GalleryImage[] }) {
-  const t = useTranslations("common");
+  const t = useTranslations();
+  const hasDesktop = images.some((image) => image.device === "desktop");
+  const hasMobile = images.some((image) => image.device === "mobile");
+  const showToggle = hasDesktop && hasMobile;
+
+  const [device, setDevice] = useState<DeviceFilter>("desktop");
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const canSlide = images.length > 1;
-  const current = images[index];
+
+  const visible = useMemo(
+    () => (showToggle ? images.filter((image) => image.device === device) : images),
+    [images, showToggle, device],
+  );
+
+  const canSlide = visible.length > 1;
+  const current = visible[index];
+  const compact = showToggle && device === "mobile";
 
   const close = useCallback(() => setOpen(false), []);
   const show = useCallback((i: number) => {
@@ -22,11 +37,16 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
     setOpen(true);
   }, []);
   const prev = useCallback(() => {
-    setIndex((i) => (i === 0 ? images.length - 1 : i - 1));
-  }, [images.length]);
+    setIndex((i) => (i === 0 ? visible.length - 1 : i - 1));
+  }, [visible.length]);
   const next = useCallback(() => {
-    setIndex((i) => (i === images.length - 1 ? 0 : i + 1));
-  }, [images.length]);
+    setIndex((i) => (i === visible.length - 1 ? 0 : i + 1));
+  }, [visible.length]);
+
+  useEffect(() => {
+    setIndex(0);
+    setOpen(false);
+  }, [device, showToggle]);
 
   useEffect(() => {
     if (!open) return;
@@ -48,26 +68,63 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
 
   return (
     <>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        {images.map((image, i) => (
+      {showToggle ? (
+        <div
+          className="mt-6 flex flex-wrap items-center gap-2"
+          role="group"
+          aria-label={t("projects.gallery")}
+        >
+          {(["desktop", "mobile"] as const).map((id) => {
+            const active = device === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setDevice(id)}
+                className={`inline-flex h-9 items-center justify-center rounded-full border px-4 text-sm leading-none transition-colors ${
+                  active
+                    ? "border-accent bg-accent text-heading"
+                    : "border-border bg-transparent text-muted hover:border-accent hover:text-heading"
+                }`}
+              >
+                {id === "desktop"
+                  ? t("projects.galleryDesktop")
+                  : t("projects.galleryMobile")}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
+      <div
+        className={`mt-8 grid gap-4 ${
+          compact ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" : "sm:grid-cols-2"
+        }`}
+      >
+        {visible.map((image, i) => (
           <button
             key={image.src}
             type="button"
             onClick={() => show(i)}
             className={`group relative overflow-hidden rounded-2xl border border-border ${
-              i === 0 ? "sm:col-span-2" : ""
+              !compact && i === 0 ? "sm:col-span-2" : ""
             }`}
           >
             <img
               src={image.src}
               alt={image.alt}
               className={`w-full object-cover object-top transition duration-500 group-hover:scale-[1.02] ${
-                i === 0 ? "h-80 sm:h-[28rem]" : "h-56 sm:h-72"
+                compact
+                  ? "h-64 sm:h-80"
+                  : i === 0
+                    ? "h-80 sm:h-[28rem]"
+                    : "h-56 sm:h-72"
               }`}
             />
             <span className="pointer-events-none absolute inset-0 bg-background/0 transition group-hover:bg-background/25" />
             <span className="pointer-events-none absolute bottom-3 end-3 rounded-full bg-background/80 px-3 py-1 text-xs font-semibold text-heading opacity-0 transition group-hover:opacity-100">
-              {t("galleryOpen")}
+              {t("common.galleryOpen")}
             </span>
           </button>
         ))}
@@ -78,16 +135,16 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
           className="fixed inset-0 z-[90] flex flex-col bg-background/95"
           role="dialog"
           aria-modal="true"
-          aria-label={t("galleryOpen")}
+          aria-label={t("common.galleryOpen")}
         >
           <div className="flex items-center justify-between gap-4 px-5 py-4">
             <p className="text-sm text-muted">
-              {t("galleryOf", { current: index + 1, total: images.length })}
+              {t("common.galleryOf", { current: index + 1, total: visible.length })}
             </p>
             <button
               type="button"
               onClick={close}
-              aria-label={t("galleryClose")}
+              aria-label={t("common.galleryClose")}
               className="grid h-10 w-10 place-items-center rounded-full border border-border text-heading hover:border-accent"
             >
               <X size={18} />
@@ -98,7 +155,7 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
               <button
                 type="button"
                 onClick={prev}
-                aria-label={t("galleryPrev")}
+                aria-label={t("common.galleryPrev")}
                 className="glass absolute start-4 z-10 grid h-11 w-11 place-items-center rounded-full"
               >
                 <ChevronLeft size={20} />
@@ -113,7 +170,7 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
               <button
                 type="button"
                 onClick={next}
-                aria-label={t("galleryNext")}
+                aria-label={t("common.galleryNext")}
                 className="glass absolute end-4 z-10 grid h-11 w-11 place-items-center rounded-full"
               >
                 <ChevronRight size={20} />
@@ -122,7 +179,7 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
           </div>
           {canSlide ? (
             <div className="flex justify-center gap-2 overflow-x-auto px-5 pb-5">
-              {images.map((image, i) => (
+              {visible.map((image, i) => (
                 <button
                   key={image.src}
                   type="button"

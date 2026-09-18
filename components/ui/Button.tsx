@@ -38,6 +38,13 @@ export function Button({
   );
 }
 
+const linkClass = (variant: Variant, className?: string) =>
+  cn(
+    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300 ease-[var(--ease-out-expo)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+    styles[variant],
+    className,
+  );
+
 export function ButtonLink({
   children,
   className,
@@ -49,16 +56,28 @@ export function ButtonLink({
     "href" | "className"
   >) {
   return (
-    <Link
+    <Link href={href} className={linkClass(variant, className)} {...props}>
+      {children}
+    </Link>
+  );
+}
+
+export function ButtonAnchor({
+  children,
+  className,
+  variant = "primary",
+  href,
+  ...props
+}: Common & ComponentProps<"a">) {
+  return (
+    <a
       href={href}
-      className={cn(
-        "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300 ease-[var(--ease-out-expo)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-        styles[variant],
-        className,
-      )}
+      className={linkClass(variant, className)}
+      target="_blank"
+      rel="noopener noreferrer"
       {...props}
     >
       {children}
-    </Link>
+    </a>
   );
 }

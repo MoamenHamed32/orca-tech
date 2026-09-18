@@ -4,6 +4,7 @@ const L = (en: string, ar: string): Localized => ({ en, ar });
 
 export const schoolProject: Project = {
   slug: "ai-school-platform",
+  category: "caseStudy",
   service: "ai",
   industry: "education",
   stack: [
