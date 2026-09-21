@@ -5,6 +5,8 @@ import { ButtonLink } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { routing } from "@/i18n/routing";
+import { pick } from "@/lib/cms/pick";
+import { getAboutStats } from "@/lib/cms/stats";
 import { localeMetadata } from "@/lib/seo";
 import { asLocale } from "@/lib/types";
 import { hasLocale } from "next-intl";
@@ -28,6 +30,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(asLocale(locale));
   const t = await getTranslations("about");
+  const stats = await getAboutStats();
 
   return (
     <>
@@ -57,7 +60,10 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
         </AnimatedSection>
       </Section>
       <Values />
-      <StatsRow />
+      <StatsRow
+        title={stats ? pick(locale, stats.title) : undefined}
+        items={stats?.items}
+      />
       <Section>
         <AnimatedSection className="glass rounded-[2rem] px-6 py-12 text-center">
           <h2 className="font-display text-3xl font-semibold">{t("ctaTitle")}</h2>

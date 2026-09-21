@@ -5,7 +5,7 @@ const asset = (file: string) => `/assets/projects/dalel-elgwaa/${file}`;
 
 export const dalelElgwaaProject: Project = {
   slug: "dalel-elgwaa",
-  category: "booking",
+  category: "realEstate",
   service: "engineering",
   industry: "realEstate",
   stack: [

@@ -1,7 +1,9 @@
 import { ApplyForm } from "@/components/careers/ApplyForm";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
-import { getJob } from "@/lib/content/jobs";
+import { getCareer, getCareers } from "@/lib/cms/careers";
+import { pick } from "@/lib/cms/pick";
+import { GENERAL_APPLICATION_ID, jobs as fallbackJobs } from "@/lib/content/jobs";
 import { routing } from "@/i18n/routing";
 import { localeMetadata } from "@/lib/seo";
 import { asLocale } from "@/lib/types";
@@ -32,17 +34,29 @@ export default async function ApplyPage({
   const t = await getTranslations("careers");
   const query = await searchParams;
   const roleParam = Array.isArray(query.role) ? query.role[0] : query.role;
-  const job = getJob(roleParam);
+  const jobs = (await getCareers()) ?? fallbackJobs;
+  const cmsJob =
+    roleParam && roleParam !== GENERAL_APPLICATION_ID
+      ? await getCareer(roleParam)
+      : undefined;
+  const job =
+    cmsJob === null
+      ? jobs.find((item) => item.id === roleParam)
+      : cmsJob;
 
   return (
     <>
       <PageHero
-        title={job ? t("applyHeroTitleRole", { role: job.title[locale === "ar" ? "ar" : "en"] }) : t("applyHeroTitle")}
+        title={
+          job
+            ? t("applyHeroTitleRole", { role: pick(locale, job.title) })
+            : t("applyHeroTitle")
+        }
         subtitle={t("applyHeroSubtitle")}
       />
       <Section>
         <div className="mx-auto max-w-2xl">
-          <ApplyForm initialRole={job?.id} />
+          <ApplyForm initialRole={job?.id} jobs={jobs} />
         </div>
       </Section>
     </>

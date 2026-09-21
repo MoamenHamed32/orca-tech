@@ -5,17 +5,21 @@ import { contactFormSchema, type ContactFormValues } from "@/lib/validations/con
 import { serviceIds } from "@/lib/content/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export function ContactForm() {
   const t = useTranslations();
+  const locale = useLocale();
+  const lang = locale === "ar" ? "ar" : "en";
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [apiMessage, setApiMessage] = useState("");
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -29,9 +33,45 @@ export function ContactForm() {
     },
   });
 
-  async function onSubmit() {
+  async function onSubmit(values: ContactFormValues) {
+    setStatus("idle");
+    setApiMessage("");
     try {
-      await new Promise((resolve) => setTimeout(resolve, 700));
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone?.trim() ? values.phone.trim() : null,
+          company: values.company?.trim() ? values.company.trim() : null,
+          service: values.service,
+          message: values.message,
+        }),
+      });
+      const json = (await response.json().catch(() => null)) as {
+        success?: boolean;
+        message?: { en: string; ar: string };
+        errors?: Record<string, string[]>;
+      } | null;
+
+      if (!response.ok || json?.success !== true) {
+        if (json?.errors) {
+          for (const [field, messages] of Object.entries(json.errors)) {
+            if (!messages?.length) continue;
+            if (field in values) {
+              setError(field as keyof ContactFormValues, {
+                type: "server",
+                message: messages[0],
+              });
+            }
+          }
+        }
+        setStatus("error");
+        return;
+      }
+
+      setApiMessage(json.message?.[lang] ?? "");
       setStatus("success");
       reset();
     } catch {
@@ -44,13 +84,25 @@ export function ContactForm() {
       <h2 className="font-display text-2xl font-semibold">{t("contact.formTitle")}</h2>
       <Field
         label={t("contact.name")}
-        error={errors.name ? t("contact.errors.name") : undefined}
+        error={
+          errors.name
+            ? errors.name.type === "server"
+              ? errors.name.message
+              : t("contact.errors.name")
+            : undefined
+        }
       >
         <input {...register("name")} className={inputClass} />
       </Field>
       <Field
         label={t("contact.email")}
-        error={errors.email ? t("contact.errors.email") : undefined}
+        error={
+          errors.email
+            ? errors.email.type === "server"
+              ? errors.email.message
+              : t("contact.errors.email")
+            : undefined
+        }
       >
         <input type="email" {...register("email")} className={inputClass} />
       </Field>
@@ -64,7 +116,13 @@ export function ContactForm() {
       </div>
       <Field
         label={t("contact.service")}
-        error={errors.service ? t("contact.errors.service") : undefined}
+        error={
+          errors.service
+            ? errors.service.type === "server"
+              ? errors.service.message
+              : t("contact.errors.service")
+            : undefined
+        }
       >
         <select {...register("service")} className={inputClass}>
           <option value="">{t("contact.servicePlaceholder")}</option>
@@ -77,7 +135,13 @@ export function ContactForm() {
       </Field>
       <Field
         label={t("contact.message")}
-        error={errors.message ? t("contact.errors.message") : undefined}
+        error={
+          errors.message
+            ? errors.message.type === "server"
+              ? errors.message.message
+              : t("contact.errors.message")
+            : undefined
+        }
       >
         <textarea {...register("message")} rows={5} className={inputClass} />
       </Field>
@@ -92,7 +156,17 @@ export function ContactForm() {
             exit={{ opacity: 0 }}
             className={status === "success" ? "text-sm text-accent-soft" : "text-sm text-red-400"}
           >
-            <strong>{t(`contact.${status}Title`)}</strong> {t(`contact.${status}Body`)}
+            {status === "success" ? (
+              apiMessage || (
+                <>
+                  <strong>{t("contact.successTitle")}</strong> {t("contact.successBody")}
+                </>
+              )
+            ) : (
+              <>
+                <strong>{t("contact.errorTitle")}</strong> {t("contact.errorBody")}
+              </>
+            )}
           </motion.p>
         ) : null}
       </AnimatePresence>

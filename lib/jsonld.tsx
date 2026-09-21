@@ -1,4 +1,6 @@
 import { BRAND } from "@/lib/brand";
+import { pick } from "@/lib/cms/pick";
+import type { CmsSettings } from "@/lib/cms/types";
 import { SITE_URL } from "@/lib/utils";
 
 export function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -10,26 +12,31 @@ export function JsonLd({ data }: { data: Record<string, unknown> }) {
   );
 }
 
-export function organizationJsonLd(locale: string) {
+export function organizationJsonLd(locale: string, settings?: CmsSettings | null) {
   const isAr = locale === "ar";
+  const sameAs = settings
+    ? [settings.social.linkedin, settings.social.facebook, settings.social.instagram].filter(
+        (url): url is string => Boolean(url),
+      )
+    : [...BRAND.sameAs];
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: isAr ? "أوركا-تك" : BRAND.name,
-    alternateName: isAr ? BRAND.name : "أوركا-تك",
-    legalName: BRAND.legalName,
+    name: isAr ? "أوركا-تك" : (settings?.siteName ?? BRAND.name),
+    alternateName: isAr ? (settings?.siteName ?? BRAND.name) : "أوركا-تك",
+    legalName: settings?.legalName ?? BRAND.legalName,
     url: `${SITE_URL}/${locale}`,
     logo: `${SITE_URL}/icon-512.png`,
     image: `${SITE_URL}/og.png`,
-    email: [...BRAND.emails],
-    telephone: BRAND.phone,
+    email: settings ? [settings.emails.info, settings.emails.sales] : [...BRAND.emails],
+    telephone: settings?.phones[0] ?? BRAND.phone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: BRAND.streetAddress,
-      addressLocality: BRAND.locality,
-      addressCountry: BRAND.country,
+      streetAddress: settings ? pick(locale, settings.address.street) : BRAND.streetAddress,
+      addressLocality: settings ? pick(locale, settings.address.locality) : BRAND.locality,
+      addressCountry: settings?.address.countryCode ?? BRAND.country,
     },
-    sameAs: BRAND.sameAs,
+    sameAs,
     areaServed: ["AE", "SA", "EG", "worldwide"],
     knowsAbout: [
       "Software engineering",
@@ -42,16 +49,16 @@ export function organizationJsonLd(locale: string) {
   };
 }
 
-export function websiteJsonLd(locale: string) {
+export function websiteJsonLd(locale: string, settings?: CmsSettings | null) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Orca-Tech",
+    name: settings?.siteName ?? "Orca-Tech",
     url: `${SITE_URL}/${locale}`,
     inLanguage: locale === "ar" ? "ar" : "en",
     publisher: {
       "@type": "Organization",
-      name: BRAND.legalName,
+      name: settings?.legalName ?? BRAND.legalName,
       url: SITE_URL,
     },
   };

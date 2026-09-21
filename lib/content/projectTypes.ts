@@ -8,14 +8,18 @@ export type ProjectCategory =
   | "lms"
   | "ecommerce"
   | "fintech"
-  | "booking";
+  | "realEstate"
+  | "charity"
+  | "logistics";
 
 export const projectCategories: Array<"all" | ProjectCategory> = [
   "all",
   "lms",
   "ecommerce",
   "fintech",
-  "booking",
+  "realEstate",
+  "charity",
+  "logistics",
   "caseStudy",
 ];
 

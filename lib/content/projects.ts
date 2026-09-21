@@ -1,7 +1,9 @@
 import { marketplaceProject } from "./caseStudyMarketplace";
 import { schoolProject } from "./caseStudySchool";
 import { dalelElgwaaProject } from "./projectDalelElgwaa";
+import { ehsanunaProject } from "./projectEhsanuna";
 import { halsahProject } from "./projectHalsah";
+import { meshwarCapitalProject } from "./projectMeshwarCapital";
 import { smartDriverProject } from "./projectSmartDriver";
 import { smartStudentProject } from "./projectSmartStudent";
 import { yeloCashProject } from "./projectYeloCash";
@@ -29,6 +31,8 @@ export const projects = [
   halsahProject,
   smartDriverProject,
   smartStudentProject,
+  ehsanunaProject,
+  meshwarCapitalProject,
   marketplaceProject,
   schoolProject,
 ];

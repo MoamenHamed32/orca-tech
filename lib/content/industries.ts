@@ -7,6 +7,7 @@ export const industryIds = [
   "education",
   "realEstate",
   "hospitality",
+  "charity",
 ] as const;
 
 export type IndustryId = (typeof industryIds)[number];
@@ -20,4 +21,5 @@ export const industryIcons: Record<IndustryId, string> = {
   education: "GraduationCap",
   realEstate: "Building2",
   hospitality: "Hotel",
+  charity: "HeartHandshake",
 };

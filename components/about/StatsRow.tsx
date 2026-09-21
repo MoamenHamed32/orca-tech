@@ -1,11 +1,13 @@
 "use client";
 
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { stats } from "@/lib/content/team";
-import { useTranslations } from "next-intl";
+import type { CmsStatItem } from "@/lib/cms/types";
+import { pick } from "@/lib/cms/pick";
+import { stats as fallbackStats } from "@/lib/content/team";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-function Counter({ value }: { value: number }) {
+function Counter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -34,22 +36,44 @@ function Counter({ value }: { value: number }) {
 
   return (
     <span ref={ref} className="font-display text-4xl font-semibold text-heading sm:text-5xl">
-      {count}+
+      {count}
+      {suffix}
     </span>
   );
 }
 
-export function StatsRow() {
+export function StatsRow({
+  title,
+  items,
+}: {
+  title?: string;
+  items?: CmsStatItem[];
+}) {
   const t = useTranslations("about");
+  const locale = useLocale();
+  const displayItems =
+    items && items.length > 0
+      ? items.map((item) => ({
+          id: item.id,
+          value: Number(item.value),
+          suffix: item.suffix ?? "+",
+          label: pick(locale, item.label),
+        }))
+      : fallbackStats.map((stat) => ({
+          id: stat.id,
+          value: stat.value,
+          suffix: "+",
+          label: t(`stats.${stat.id}`),
+        }));
 
   return (
     <Section>
-      <SectionHeading title={t("statsTitle")} />
+      <SectionHeading title={title ?? t("statsTitle")} />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
+        {displayItems.map((stat) => (
           <div key={stat.id} className="glass rounded-2xl p-6 text-center">
-            <Counter value={stat.value} />
-            <p className="mt-2 text-sm text-muted">{t(`stats.${stat.id}`)}</p>
+            <Counter value={stat.value} suffix={stat.suffix} />
+            <p className="mt-2 text-sm text-muted">{stat.label}</p>
           </div>
         ))}
       </div>

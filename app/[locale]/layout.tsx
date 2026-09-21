@@ -1,6 +1,8 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { routing } from "@/i18n/routing";
+import { pick } from "@/lib/cms/pick";
+import { getSettings } from "@/lib/cms/settings";
 import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { localeMetadata } from "@/lib/seo";
 import { asLocale } from "@/lib/types";
@@ -9,6 +11,10 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { IBM_Plex_Sans_Arabic, Inter, Space_Grotesk } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { Viewport } from "next";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,11 +49,14 @@ export const viewport: Viewport = {
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   const t = await getTranslations({ locale: asLocale(locale), namespace: "meta" });
+  const settings = await getSettings();
   return localeMetadata({
     locale,
-    title: t("defaultTitle"),
-    description: t("defaultDescription"),
-    keywords: t("keywords"),
+    title: settings ? pick(locale, settings.seo.defaultTitle) : t("defaultTitle"),
+    description: settings
+      ? pick(locale, settings.seo.defaultDescription)
+      : t("defaultDescription"),
+    keywords: settings ? pick(locale, settings.seo.keywords) : t("keywords"),
   });
 }
 
@@ -62,6 +71,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(asLocale(locale));
   const messages = await getMessages();
+  const settings = await getSettings();
 
   return (
     <html
@@ -70,8 +80,8 @@ export default async function LocaleLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${ibmPlexArabic.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-heading">
-        <JsonLd data={organizationJsonLd(locale)} />
-        <JsonLd data={websiteJsonLd(locale)} />
+        <JsonLd data={organizationJsonLd(locale, settings)} />
+        <JsonLd data={websiteJsonLd(locale, settings)} />
         <NextIntlClientProvider messages={messages}>
           <Navbar />
           <main className="flex-1">{children}</main>

@@ -14,7 +14,25 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "back.orcatechltd.com",
+        pathname: "/uploads/**",
+      },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, no-cache, must-revalidate, proxy-revalidate",
+          },
+        ],
+      },
+    ];
   },
 };
 

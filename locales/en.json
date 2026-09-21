@@ -172,6 +172,10 @@
     "hospitality": {
       "name": "Hospitality",
       "description": "Booking, guest experience, and operations for hotels and venues."
+    },
+    "charity": {
+      "name": "Charity",
+      "description": "Donation platforms, volunteering, and trusted community programs."
     }
   },
   "about": {
@@ -259,7 +263,7 @@
     "applyHeroTitleRole": "Apply — {role}",
     "applyHeroSubtitle": "Tell us about your work. We typically reply within a few business days.",
     "applyFormTitle": "Application",
-    "applyFormLead": "Pick a role, add a short note, and attach a CV if you have one. This demo does not send email yet.",
+    "applyFormLead": "Pick a role, add a short note, and attach a CV if you have one.",
     "applyName": "Full name",
     "applyEmail": "Email",
     "applyPhone": "Phone",
@@ -281,7 +285,8 @@
       "email": "Enter a valid email.",
       "role": "Select a role.",
       "url": "Use a full URL starting with https://",
-      "message": "Write a short note (at least 10 characters)."
+      "message": "Write a short note (at least 10 characters).",
+      "cv": "Upload a PDF, DOC, or DOCX file up to 5 MB."
     }
   },
   "articles": {
@@ -301,10 +306,10 @@
   },
   "projects": {
     "metaTitle": "Our Work — Orca-Tech",
-    "metaDescription": "See Orca-Tech case studies and client platforms across LMS, e-commerce, FinTech, and booking.",
+    "metaDescription": "See Orca-Tech case studies and client platforms across LMS, e-commerce, FinTech, real estate, charity, and logistics.",
     "heroEyebrow": "Projects",
     "heroTitle": "Our Work",
-    "heroSubtitle": "Platforms we designed and engineered — case studies, learning products, commerce, FinTech, and booking.",
+    "heroSubtitle": "Platforms we designed and engineered — learning products, commerce, FinTech, real estate, charity, and logistics.",
     "filters": {
       "all": "All",
       "service": "Service",
@@ -316,7 +321,9 @@
       "lms": "LMS",
       "ecommerce": "E-commerce",
       "fintech": "FinTech",
-      "booking": "Booking"
+      "realEstate": "Real estate",
+      "charity": "Charity",
+      "logistics": "Logistics"
     },
     "liveDemo": "Live demo",
     "galleryDesktop": "Desktop",
@@ -352,7 +359,7 @@
     "submit": "Send message",
     "sending": "Sending…",
     "successTitle": "Message received.",
-    "successBody": "Thank you. A producer will follow up shortly. This demo does not send email yet.",
+    "successBody": "Thank you. A producer will follow up shortly.",
     "errorTitle": "Something went wrong.",
     "errorBody": "Please check the form and try again.",
     "errors": {

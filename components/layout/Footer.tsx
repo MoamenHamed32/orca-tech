@@ -1,12 +1,11 @@
-"use client";
-
 import { Logo } from "@/components/layout/Logo";
-import { Button } from "@/components/ui/Button";
+import { NewsletterForm } from "@/components/layout/NewsletterForm";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/SocialIcons";
 import { Link } from "@/i18n/navigation";
+import { pick } from "@/lib/cms/pick";
+import { getSettings } from "@/lib/cms/settings";
 import { serviceIds } from "@/lib/content/services";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { getLocale, getTranslations } from "next-intl/server";
 
 const siteLinks = [
   { href: "/", key: "home" },
@@ -17,20 +16,30 @@ const siteLinks = [
   { href: "/contact", key: "contact" },
 ] as const;
 
-export function Footer() {
-  const t = useTranslations();
-  const [email, setEmail] = useState("");
-  const [state, setState] = useState<"idle" | "ok" | "err">("idle");
+const fallbackSocial = [
+  { href: "https://www.linkedin.com/company/orca-techs/", icon: LinkedInIcon, label: "LinkedIn" },
+  { href: "https://www.facebook.com/", icon: FacebookIcon, label: "Facebook" },
+  { href: "https://www.instagram.com/", icon: InstagramIcon, label: "Instagram" },
+];
 
-  function subscribe(event: React.FormEvent) {
-    event.preventDefault();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setState("err");
-      return;
-    }
-    setState("ok");
-    setEmail("");
-  }
+export async function Footer() {
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const settings = await getSettings();
+  const description = settings
+    ? pick(locale, settings.description)
+    : t("footer.description");
+  const infoEmail = settings?.emails.info ?? t("contact.emailInfo");
+  const salesEmail = settings?.emails.sales ?? t("contact.emailSales");
+  const social = settings
+    ? [
+        { href: settings.social.linkedin, icon: LinkedInIcon, label: "LinkedIn" },
+        { href: settings.social.facebook, icon: FacebookIcon, label: "Facebook" },
+        { href: settings.social.instagram, icon: InstagramIcon, label: "Instagram" },
+      ].filter((item): item is { href: string; icon: typeof LinkedInIcon; label: string } =>
+        Boolean(item.href),
+      )
+    : fallbackSocial;
 
   return (
     <footer className="border-t border-border bg-elevated">
@@ -39,44 +48,42 @@ export function Footer() {
           <Link href="/" aria-label="Orca-Tech">
             <Logo />
           </Link>
-          <p className="mt-4 max-w-sm text-sm leading-6 text-muted">
-            {t("footer.description")}
-          </p>
+          <p className="mt-4 max-w-sm text-sm leading-6 text-muted">{description}</p>
           <div className="mt-4 space-y-1 text-sm">
             <a
-              href={`mailto:${t("contact.emailInfo")}`}
+              href={`mailto:${infoEmail}`}
               className="block text-muted transition-colors hover:text-heading"
             >
-              {t("contact.emailInfo")}
+              {infoEmail}
             </a>
             <a
-              href={`mailto:${t("contact.emailSales")}`}
+              href={`mailto:${salesEmail}`}
               className="block text-muted transition-colors hover:text-heading"
             >
-              {t("contact.emailSales")}
+              {salesEmail}
             </a>
           </div>
-          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-            {t("footer.followUs")}
-          </p>
-          <div className="mt-3 flex gap-3">
-            {[
-              { href: "https://www.linkedin.com/company/orca-techs/", icon: LinkedInIcon, label: "LinkedIn" },
-              { href: "https://www.facebook.com/", icon: FacebookIcon, label: "Facebook" },
-              { href: "https://www.instagram.com/", icon: InstagramIcon, label: "Instagram" },
-            ].map(({ href, icon: Icon, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="rounded-full border border-border p-2 text-muted transition-all duration-300 hover:scale-105 hover:border-accent hover:text-heading hover:shadow-[0_0_18px_rgb(47_111_255_/_0.25)]"
-              >
-                <Icon size={16} />
-              </a>
-            ))}
-          </div>
+          {social.length > 0 ? (
+            <>
+              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                {t("footer.followUs")}
+              </p>
+              <div className="mt-3 flex gap-3">
+                {social.map(({ href, icon: Icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="rounded-full border border-border p-2 text-muted transition-all duration-300 hover:scale-105 hover:border-accent hover:text-heading hover:shadow-[0_0_18px_rgb(47_111_255_/_0.25)]"
+                  >
+                    <Icon size={16} />
+                  </a>
+                ))}
+              </div>
+            </>
+          ) : null}
         </div>
 
         <div className="lg:col-span-2">
@@ -114,31 +121,7 @@ export function Footer() {
         <div className="lg:col-span-3">
           <p className="text-sm font-semibold text-heading">{t("footer.newsletter")}</p>
           <p className="mt-2 text-sm text-muted">{t("footer.newsletterHint")}</p>
-          <form onSubmit={subscribe} className="mt-4 flex w-full flex-col gap-2">
-            <label className="sr-only" htmlFor="newsletter-email">
-              {t("footer.newsletterPlaceholder")}
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-                setState("idle");
-              }}
-              placeholder={t("footer.newsletterPlaceholder")}
-              className="w-full min-w-0 rounded-full border border-border bg-surface px-4 py-2.5 text-sm text-heading outline-none placeholder:text-muted focus:border-accent"
-            />
-            <Button type="submit" className="w-fit shrink-0 self-start px-5">
-              {t("footer.subscribe")}
-            </Button>
-          </form>
-          {state === "ok" ? (
-            <p className="mt-2 text-xs text-accent-soft">{t("footer.subscribed")}</p>
-          ) : null}
-          {state === "err" ? (
-            <p className="mt-2 text-xs text-red-400">{t("footer.newsletterError")}</p>
-          ) : null}
+          <NewsletterForm />
         </div>
       </div>
 

@@ -1,8 +1,15 @@
 import { Mail, MapPin, Phone } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { pick } from "@/lib/cms/pick";
+import type { CmsSettings } from "@/lib/cms/types";
+import { getLocale, getTranslations } from "next-intl/server";
 
-export async function ContactInfo() {
+export async function ContactInfo({ settings }: { settings: CmsSettings | null }) {
   const t = await getTranslations("contact");
+  const locale = await getLocale();
+  const infoEmail = settings?.emails.info ?? t("emailInfo");
+  const salesEmail = settings?.emails.sales ?? t("emailSales");
+  const phones = settings?.phones?.length ? settings.phones : [t("phoneValue")];
+  const address = settings ? pick(locale, settings.address.formatted) : t("addressValue");
 
   return (
     <aside className="glass rounded-2xl p-6 sm:p-8">
@@ -12,17 +19,11 @@ export async function ContactInfo() {
           <Mail className="mt-0.5 h-4 w-4 text-accent" aria-hidden />
           <div>
             <p className="text-muted">{t("emailLabel")}</p>
-            <a
-              href={`mailto:${t("emailInfo")}`}
-              className="block text-heading hover:text-accent"
-            >
-              {t("emailInfo")}
+            <a href={`mailto:${infoEmail}`} className="block text-heading hover:text-accent">
+              {infoEmail}
             </a>
-            <a
-              href={`mailto:${t("emailSales")}`}
-              className="mt-1 block text-heading hover:text-accent"
-            >
-              {t("emailSales")}
+            <a href={`mailto:${salesEmail}`} className="mt-1 block text-heading hover:text-accent">
+              {salesEmail}
             </a>
           </div>
         </li>
@@ -30,16 +31,22 @@ export async function ContactInfo() {
           <Phone className="mt-0.5 h-4 w-4 text-accent" aria-hidden />
           <div>
             <p className="text-muted">{t("phoneLabel")}</p>
-            <a href={`tel:${t("phoneValue").replace(/\s/g, "")}`} className="text-heading hover:text-accent">
-              {t("phoneValue")}
-            </a>
+            {phones.map((phone) => (
+              <a
+                key={phone}
+                href={`tel:${phone.replace(/\s/g, "")}`}
+                className="block text-heading hover:text-accent"
+              >
+                {phone}
+              </a>
+            ))}
           </div>
         </li>
         <li className="flex gap-3">
           <MapPin className="mt-0.5 h-4 w-4 text-accent" aria-hidden />
           <div>
             <p className="text-muted">{t("addressLabel")}</p>
-            <p className="text-heading">{t("addressValue")}</p>
+            <p className="text-heading">{address}</p>
           </div>
         </li>
       </ul>

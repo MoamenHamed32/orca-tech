@@ -17,7 +17,7 @@ export type ArticleImage = {
   alt: { en: string; ar: string };
 };
 
-export type Article = {
+export type ArticleListItem = {
   slug: string;
   category: ArticleCategory;
   date: string;
@@ -26,8 +26,11 @@ export type Article = {
   cover: string;
   title: { en: string; ar: string };
   excerpt: { en: string; ar: string };
-  body: ArticleBlock[];
   links: ArticleLink[];
+};
+
+export type Article = ArticleListItem & {
+  body: ArticleBlock[];
   gallery: ArticleImage[];
 };
 
