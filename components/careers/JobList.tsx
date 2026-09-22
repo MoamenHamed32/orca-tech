@@ -2,13 +2,13 @@ import { Stagger, StaggerItem } from "@/components/ui/AnimatedSection";
 import { ButtonLink } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
-import { jobs } from "@/lib/content/jobs";
+import { pick } from "@/lib/cms/pick";
+import type { CmsJob } from "@/lib/cms/types";
 import { getLocale, getTranslations } from "next-intl/server";
 
-export async function JobList() {
+export async function JobList({ jobs }: { jobs: CmsJob[] }) {
   const t = await getTranslations("careers");
   const locale = await getLocale();
-  const lang = locale === "ar" ? "ar" : "en";
 
   return (
     <Section id="open-positions">
@@ -38,11 +38,12 @@ export async function JobList() {
             <StaggerItem key={job.id}>
               <article className="flex flex-col gap-4 border-b border-border px-5 py-6 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                 <div className="max-w-2xl">
-                  <h3 className="font-display text-xl font-semibold">{job.title[lang]}</h3>
+                  <h3 className="font-display text-xl font-semibold">{pick(locale, job.title)}</h3>
                   <p className="mt-2 text-sm text-muted">
-                    {job.location[lang]} · {job.type[lang]} · {job.department[lang]}
+                    {pick(locale, job.location)} · {pick(locale, job.type)} ·{" "}
+                    {pick(locale, job.department)}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-muted">{job.summary[lang]}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted">{pick(locale, job.summary)}</p>
                 </div>
                 <ButtonLink
                   href={`/careers/apply?role=${job.id}`}

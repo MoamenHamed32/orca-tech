@@ -1,17 +1,25 @@
 import { getTranslations } from "next-intl/server";
 
-const LAT = 31.239621138513407;
-const LNG = 32.320161845413416;
-const MAP_SRC = `https://maps.google.com/maps?q=${LAT},${LNG}&hl=en&z=16&output=embed`;
+const FALLBACK_LAT = 31.239621138513407;
+const FALLBACK_LNG = 32.320161845413416;
 
-export async function OfficeMap() {
+export async function OfficeMap({
+  lat,
+  lng,
+}: {
+  lat?: number;
+  lng?: number;
+}) {
   const t = await getTranslations("contact");
+  const mapLat = lat ?? FALLBACK_LAT;
+  const mapLng = lng ?? FALLBACK_LNG;
+  const mapSrc = `https://maps.google.com/maps?q=${mapLat},${mapLng}&hl=en&z=16&output=embed`;
 
   return (
     <figure className="overflow-hidden rounded-2xl border border-border">
       <iframe
         title={t("mapCaption")}
-        src={MAP_SRC}
+        src={mapSrc}
         className="h-64 w-full border-0 grayscale invert-[0.88] contrast-[0.95]"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

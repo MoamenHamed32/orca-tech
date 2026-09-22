@@ -2,7 +2,8 @@ import { JobList } from "@/components/careers/JobList";
 import { OpenApplication } from "@/components/careers/OpenApplication";
 import { Perks } from "@/components/careers/Perks";
 import { PageHero } from "@/components/ui/PageHero";
-import { CAREERS_COVER } from "@/lib/content/jobs";
+import { getCareers } from "@/lib/cms/careers";
+import { CAREERS_COVER, jobs as fallbackJobs } from "@/lib/content/jobs";
 import { routing } from "@/i18n/routing";
 import { localeMetadata } from "@/lib/seo";
 import { asLocale } from "@/lib/types";
@@ -31,6 +32,7 @@ export default async function CareersPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(asLocale(locale));
   const t = await getTranslations("careers");
+  const jobs = (await getCareers()) ?? fallbackJobs;
 
   return (
     <>
@@ -44,7 +46,7 @@ export default async function CareersPage({
         coverPosition="object-[center_35%]"
       />
       <Perks />
-      <JobList />
+      <JobList jobs={jobs} />
       <OpenApplication />
     </>
   );

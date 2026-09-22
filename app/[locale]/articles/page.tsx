@@ -1,6 +1,7 @@
 import { ArticleIndex } from "@/components/articles/ArticleIndex";
 import { PageHero } from "@/components/ui/PageHero";
-import { ARTICLES_COVER, articles } from "@/lib/content/articles";
+import { getArticles } from "@/lib/cms/articles";
+import { ARTICLES_COVER, articles as fallbackArticles } from "@/lib/content/articles";
 import { routing } from "@/i18n/routing";
 import { localeMetadata } from "@/lib/seo";
 import { asLocale } from "@/lib/types";
@@ -29,6 +30,7 @@ export default async function ArticlesPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(asLocale(locale));
   const t = await getTranslations("articles");
+  const articles = (await getArticles()) ?? fallbackArticles;
 
   return (
     <>

@@ -5,6 +5,7 @@ import { OfficeMap } from "@/components/contact/OfficeMap";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { routing } from "@/i18n/routing";
+import { getSettings } from "@/lib/cms/settings";
 import { localeMetadata } from "@/lib/seo";
 import { asLocale } from "@/lib/types";
 import { hasLocale } from "next-intl";
@@ -31,6 +32,7 @@ export default async function ContactPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(asLocale(locale));
   const t = await getTranslations("contact");
+  const settings = await getSettings();
 
   return (
     <>
@@ -41,8 +43,8 @@ export default async function ContactPage({
             <ContactForm />
           </div>
           <div className="space-y-6 lg:col-span-2">
-            <ContactInfo />
-            <OfficeMap />
+            <ContactInfo settings={settings} />
+            <OfficeMap lat={settings?.map.lat} lng={settings?.map.lng} />
           </div>
         </div>
         <div className="mt-16">

@@ -4,7 +4,7 @@ import { ArticleCard } from "@/components/articles/ArticleCard";
 import { Stagger, StaggerItem } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
-import type { Article, ArticleCategory } from "@/lib/content/articles";
+import type { ArticleCategory, ArticleListItem } from "@/lib/content/articles";
 import { cn, type AppLocale } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -21,7 +21,7 @@ export function ArticleIndex({
   articles,
   locale,
 }: {
-  articles: Article[];
+  articles: ArticleListItem[];
   locale: AppLocale;
 }) {
   const t = useTranslations();

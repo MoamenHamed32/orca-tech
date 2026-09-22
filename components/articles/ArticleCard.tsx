@@ -3,7 +3,7 @@
 import { ArticleLinks } from "@/components/articles/ArticleLinks";
 import { Card } from "@/components/ui/Card";
 import { Link } from "@/i18n/navigation";
-import type { Article } from "@/lib/content/articles";
+import type { ArticleListItem } from "@/lib/content/articles";
 import type { AppLocale } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
@@ -11,7 +11,7 @@ export function ArticleCard({
   article,
   locale,
 }: {
-  article: Article;
+  article: ArticleListItem;
   locale: AppLocale;
 }) {
   const t = useTranslations();

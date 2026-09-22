@@ -1,8 +1,12 @@
-import { articles } from "@/lib/content/articles";
+import { getArticles } from "@/lib/cms/articles";
+import { articles as fallbackArticles } from "@/lib/content/articles";
 import { projects } from "@/lib/content/projects";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/utils";
 import type { MetadataRoute } from "next";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const staticPaths: Array<{ path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
   { path: "", priority: 1, changeFrequency: "weekly" },
@@ -14,9 +18,10 @@ const staticPaths: Array<{ path: string; priority: number; changeFrequency: Meta
   { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const articleList = (await getArticles()) ?? fallbackArticles;
   const extra = [
-    ...articles.map((article) => ({
+    ...articleList.map((article) => ({
       path: `/articles/${article.slug}`,
       priority: 0.6,
       changeFrequency: "monthly" as const,

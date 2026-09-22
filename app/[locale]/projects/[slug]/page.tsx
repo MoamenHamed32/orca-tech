@@ -1,6 +1,7 @@
 import { ProjectGallery } from "@/components/projects/ProjectGallery";
+import { ProjectLogo } from "@/components/projects/ProjectLogo";
 import { ProjectSections } from "@/components/projects/ProjectSections";
-import { ButtonLink } from "@/components/ui/Button";
+import { ButtonAnchor, ButtonLink } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { getProject, projects } from "@/lib/content/projects";
 import { routing } from "@/i18n/routing";
@@ -46,6 +47,7 @@ export default async function ProjectDetailPage({
   const images = project.gallery.map((image) => ({
     src: image.src,
     alt: image.alt[lang],
+    device: image.device,
   }));
 
   return (
@@ -67,9 +69,19 @@ export default async function ProjectDetailPage({
           <p className="mt-6 text-xs uppercase tracking-wider text-accent-soft">
             {t(`industries.${project.industry}.name`)} · {t(`services.${project.service}.name`)}
           </p>
-          <h1 className="font-display mt-3 text-4xl font-semibold sm:text-5xl">
-            {project.name[lang]}
-          </h1>
+          <div className="mt-3 flex flex-wrap items-center gap-4">
+            {project.logo ? (
+              <ProjectLogo
+                src={project.logo}
+                name={project.name[lang]}
+                tone={project.logoTone}
+                size="detail"
+              />
+            ) : null}
+            <h1 className="font-display text-4xl font-semibold sm:text-5xl">
+              {project.name[lang]}
+            </h1>
+          </div>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">{project.tagline[lang]}</p>
           {project.tags.length > 0 ? (
             <div className="mt-6 flex flex-wrap gap-2">
@@ -80,6 +92,15 @@ export default async function ProjectDetailPage({
                 >
                   {tag[lang]}
                 </span>
+              ))}
+            </div>
+          ) : null}
+          {project.links && project.links.length > 0 ? (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {project.links.map((link) => (
+                <ButtonAnchor key={link.href} href={link.href} variant="secondary">
+                  {link.label[lang]}
+                </ButtonAnchor>
               ))}
             </div>
           ) : null}

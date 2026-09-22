@@ -3,6 +3,7 @@ import {
   Building2,
   Cloud,
   GraduationCap,
+  HeartHandshake,
   HeartPulse,
   Hotel,
   Layers,
@@ -34,6 +35,7 @@ const icons = {
   GraduationCap,
   Building2,
   Hotel,
+  HeartHandshake,
   Search,
 } satisfies Record<string, LucideIcon>;
 

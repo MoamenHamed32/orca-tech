@@ -4,7 +4,12 @@ import { ArticleGallery } from "@/components/articles/ArticleGallery";
 import { ArticleLinks } from "@/components/articles/ArticleLinks";
 import { ButtonLink } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
-import { articles, getArticle, getRelatedArticles } from "@/lib/content/articles";
+import { getArticleBySlug, getArticles } from "@/lib/cms/articles";
+import {
+  articles as fallbackArticles,
+  getArticle as getStaticArticle,
+  getRelatedArticles,
+} from "@/lib/content/articles";
 import { routing } from "@/i18n/routing";
 import { JsonLd, articleJsonLd } from "@/lib/jsonld";
 import { localeMetadata } from "@/lib/seo";
@@ -14,15 +19,17 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-export function generateStaticParams() {
-  return articles.map((article) => ({ slug: article.slug }));
+export async function generateStaticParams() {
+  const items = (await getArticles()) ?? fallbackArticles;
+  return items.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/articles/[slug]">) {
   const { locale, slug } = await params;
-  const article = getArticle(slug);
+  const cms = await getArticleBySlug(slug);
+  const article = cms === null ? getStaticArticle(slug) : cms?.article;
   if (!article) return {};
   const lang = asLocale(locale);
   return localeMetadata({
@@ -43,12 +50,16 @@ export default async function ArticleDetailPage({
   const { locale, slug } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(asLocale(locale));
-  const article = getArticle(slug);
+  const cms = await getArticleBySlug(slug);
+  const article = cms === null ? getStaticArticle(slug) : cms?.article;
   if (!article) notFound();
 
   const lang = (locale === "ar" ? "ar" : "en") as AppLocale;
   const t = await getTranslations();
-  const related = getRelatedArticles(slug);
+  const related =
+    cms === null
+      ? getRelatedArticles(slug)
+      : (cms?.related ?? []);
   const slides =
     article.gallery.length > 0
       ? article.gallery
@@ -97,16 +108,18 @@ export default async function ArticleDetailPage({
       <Section>
         <ArticleBody blocks={article.body} locale={lang} />
       </Section>
-      <Section>
-        <h2 className="font-display mb-8 text-2xl font-semibold">
-          {t("common.relatedArticles")}
-        </h2>
-        <div className="grid gap-6 lg:grid-cols-3">
-          {related.map((item) => (
-            <ArticleCard key={item.slug} article={item} locale={lang} />
-          ))}
-        </div>
-      </Section>
+      {related.length > 0 ? (
+        <Section>
+          <h2 className="font-display mb-8 text-2xl font-semibold">
+            {t("common.relatedArticles")}
+          </h2>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {related.map((item) => (
+              <ArticleCard key={item.slug} article={item} locale={lang} />
+            ))}
+          </div>
+        </Section>
+      ) : null}
     </>
   );
 }
